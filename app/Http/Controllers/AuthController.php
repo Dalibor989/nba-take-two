@@ -39,4 +39,11 @@ class AuthController extends Controller
 
         return back()->withErrors(['password' => 'Error, invalid password.']);
     }
+
+    public function logout()
+    {
+        auth()->logout();
+
+        return redirect('/login');
+    }
 }
