@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\TeamController;
 use App\Http\Controllers\PlayerController;
 
@@ -14,6 +15,8 @@ Route::group([
     Route::get('/players/{player}', [PlayerController::class, 'show'])->name('show.players');
 
     Route::post('/logout', [AuthController::class, 'logout']);
+
+    Route::post('/teams/{team}/comments', [CommentController::class, 'store'])->name('post.comment');
 });
 
 Route::group([
