@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\RegisterRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Auth\Events\Registered;
+use App\Http\Requests\RegisterRequest;
+use Illuminate\Foundation\Auth\EmailVerificationRequest;
 
 class AuthController extends Controller
 {
@@ -20,6 +22,8 @@ class AuthController extends Controller
         $data['password'] = Hash::make($data['password']);
 
         $user = User::create($data);
+
+        event(new Registered($user));
 
         return redirect('/');
     }
@@ -45,5 +49,16 @@ class AuthController extends Controller
         auth()->logout();
 
         return redirect('/login');
+    }
+
+    public function getEmailVerificationNotice()
+    {
+        return view('auth.verify-email');
+    }
+
+    public function verifyEmail(EmailVerificationRequest $request)
+    {
+        $request->fulfill();
+        return redirect('/');
     }
 }

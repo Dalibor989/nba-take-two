@@ -17,6 +17,9 @@ Route::group([
     Route::post('/logout', [AuthController::class, 'logout']);
 
     Route::post('/teams/{team}/comments', [CommentController::class, 'store'])->name('post.comment');
+
+    Route::get('/email/verify', [AuthController::class, 'getEmailVerificationNotice'])->name('verification.notice');
+    Route::get('/email/verify/{id}/{hash}', [AuthController::class, 'verifyEmail'])->middleware(['signed'])->name('verification.verify');
 });
 
 Route::group([
