@@ -25,7 +25,9 @@ class AuthController extends Controller
 
         event(new Registered($user));
 
-        return redirect('/');
+        auth()->login($user);
+
+        return redirect('/email/verify');
     }
 
     public function getLoginForm()
@@ -58,6 +60,7 @@ class AuthController extends Controller
 
     public function verifyEmail(EmailVerificationRequest $request)
     {
+        info('asdasdasd');
         $request->fulfill();
         return redirect('/');
     }
