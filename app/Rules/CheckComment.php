@@ -33,9 +33,11 @@ class CheckComment implements Rule
         
         foreach($words as $word) {
             if(in_array($word, $comments)) {
-                return redirect('/forbidden');
+                return false;
             }
         }
+
+        return true;
     }
 
     /**
@@ -45,6 +47,6 @@ class CheckComment implements Rule
      */
     public function message()
     {
-        return 'The validation error message.';
+        return 'You can use hate speech.';
     }
 }
