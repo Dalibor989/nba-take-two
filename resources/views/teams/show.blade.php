@@ -13,6 +13,12 @@
 @endforeach
 <hr>
 
+<h3>News:</h3>
+@foreach($team->news as $n)
+<div><a href="{{ route('team.news', [ 'name' => $team->name]) }}">{{ $n->title}}</a></div></br>
+@endforeach
+<hr>
+
 <h3>Squad:</h3>
 @foreach($team->players as $player)
 <p><a href="{{ route('show.players', ['player' => $player]) }}">{{ $player->first_name . ' ' . $player->last_name }}</a></p>

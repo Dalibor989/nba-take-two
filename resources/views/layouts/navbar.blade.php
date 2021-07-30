@@ -7,6 +7,7 @@
     @endguest
     @auth
     <h3><a href="/news">News</a></h3>
+    <h3><a href="/news/create">Write news</a></h3>
     <h3>{{ auth()->user()->name }}</h3>
     <h3>
         <form method="POST" action="/logout">

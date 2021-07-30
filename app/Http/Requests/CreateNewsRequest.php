@@ -26,6 +26,8 @@ class CreateNewsRequest extends FormRequest
         return [
             'title' => 'required|string',
             'content' => 'required|string|min:10|max:1500',
+            'teams' => 'required|array|min:1',
+            'teams.*' => 'integer|exists:teams,id',
         ];
     }
 }

@@ -11,6 +11,10 @@
 <body>
     @include('layouts.navbar')    
 
+    @if(session('post_created_successfully'))
+    <p id="success-alert" class="alert alert-success">Thank you for publishing article on www.nba.com</p>
+    @endif
+
     <div class="container">
         @yield('content')
     </div>

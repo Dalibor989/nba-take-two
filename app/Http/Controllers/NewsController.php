@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\CreateNewsRequest;
 use App\Models\News;
+use App\Models\Team;
 use Illuminate\Http\Request;
 
 class NewsController extends Controller
@@ -15,7 +16,7 @@ class NewsController extends Controller
      */
     public function index()
     {
-        $news = News::with('user')->paginate(10);
+        $news = News::with(['user', 'teams'])->latest()->paginate(10);
         return view('news.index', compact('news'));
     }
 
@@ -26,7 +27,8 @@ class NewsController extends Controller
      */
     public function create()
     {
-        //
+        $teams = Team::all();
+        return view('news.create', compact('teams'));
     }
 
     /**
@@ -39,7 +41,11 @@ class NewsController extends Controller
     {
         $data = $request->validated();
 
-        $news = auth()->user()-news()->create($data);
+        $news = auth()->user()->news()->create($data);
+
+        $news->teams()->attach($data['teams']);
+        
+        session()->flash('news_created_successfully', true);
 
         return redirect('/news');
     }
