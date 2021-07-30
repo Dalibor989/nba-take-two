@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CommentController;
+use App\Http\Controllers\NewsController;
 use App\Http\Controllers\TeamController;
 use App\Http\Controllers\PlayerController;
 
@@ -11,6 +12,9 @@ Route::group([
 ], function() {
     Route::get('/', [TeamController::class, 'index']);
     Route::get('/teams/{team}', [TeamController::class, 'show'])->name('show.teams');
+
+    Route::get('/news', [NewsController::class, 'index']);
+    Route::get('/news/{n}', [NewsController::class, 'show'])->name('show.news');
     
     Route::get('/players/{player}', [PlayerController::class, 'show'])->name('show.players');
 

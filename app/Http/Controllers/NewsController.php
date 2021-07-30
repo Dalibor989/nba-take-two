@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CreateNewsRequest;
 use App\Models\News;
 use Illuminate\Http\Request;
 
@@ -14,7 +15,8 @@ class NewsController extends Controller
      */
     public function index()
     {
-        //
+        $news = News::with('user')->paginate(10);
+        return view('news.index', compact('news'));
     }
 
     /**
@@ -33,9 +35,13 @@ class NewsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CreateNewsRequest $request)
     {
-        //
+        $data = $request->validated();
+
+        $news = auth()->user()-news()->create($data);
+
+        return redirect('/news');
     }
 
     /**
@@ -44,9 +50,9 @@ class NewsController extends Controller
      * @param  \App\Models\News  $news
      * @return \Illuminate\Http\Response
      */
-    public function show(News $news)
+    public function show(News $n)
     {
-        //
+        return view('news.show', compact('n'));
     }
 
     /**
